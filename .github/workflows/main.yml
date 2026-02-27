@@ -1,0 +1,24 @@
+name: Scrape Table Sums
+
+on: [push, workflow_dispatch] # Runs on every push or manual trigger
+
+jobs:
+  scrape_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install playwright
+          playwright install chromium
+
+      # THIS IS THE REQUIRED STEP WITH YOUR EMAIL
+      - name: Run script for 23f2005206@ds.study.iitm.ac.in
+        run: python scrape.py
